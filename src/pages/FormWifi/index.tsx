@@ -19,7 +19,7 @@ const formSchema = z.object({
     email: z.email("Email inválido"),
     phone: z.string().optional(),
     checkbox: z.boolean().refine((v) => v === true, {
-        message: "É obrigatório aceitar os termos",
+        message: "Os termos são obrigatórios",
     }),
 });
 
