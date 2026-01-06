@@ -32,7 +32,6 @@ export function CustomerList({ storeId }: { storeId: string }) {
 
     const handleDelete = (id: string) => {
         setLoading(true);
-        /* 2 erro */
         supabase.from('customers')
             .delete()
             .eq('store_id', storeId)

@@ -27,6 +27,8 @@ type LeadFormData = z.infer<typeof formSchema>;
 
 export function FormWifi() {
     const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const {
         register,
@@ -36,10 +38,20 @@ export function FormWifi() {
         resolver: zodResolver(formSchema),
     });
 
-    function onSubmit(data: LeadFormData) {
+    function fakeRequest(ms: number) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    async function onSubmit(data: LeadFormData) {
+        setIsLoading(true);
+
+        // simula chamada para backend / API
+        await fakeRequest(2000);
+
         data.phone = `${selectedCountry.code} ${data.phone}`;
         console.log("Form válido e enviado:", data);
 
+        setIsLoading(false);
     }
 
     function handleSelectCountry(country: Country) {
@@ -96,7 +108,11 @@ export function FormWifi() {
                         />
                     </CheckBoxField>
 
-                    <Button />
+                    <Button
+                        disabled={isLoading}
+                        loading={isLoading}
+
+                    />
 
                     <footer className="leads-footer">
                         Ao conectar-se, concorda com os nossos termos.
