@@ -78,10 +78,13 @@ export function FormWifi() {
                     >
                         <input
                             {...register("phone")}
-                            type="numeric"
+                            type="tel"
                             placeholder="999 999 999"
                             className="leads-input"
-
+                            onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                // remove tudo que não for número
+                                e.target.value = e.target.value.replace(/\D/g, '');
+                            }}
                         />
                     </PhoneInput>
 
